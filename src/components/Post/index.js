@@ -8,14 +8,29 @@ import { IoShareOutline } from 'react-icons/io5'
 import { uuidv4 } from '@firebase/util';
 import { comment } from 'postcss'
 import { GlobalContext, GlobalUserViewContext } from '@/state/context/GlobalContext'
+import { onAuthStateChanged } from 'firebase/auth'
+import useFetchCurrentUser from '@/utils/fetchCurrentUser'
 const Post = ({id,username,image,caption,likesCount,imageProfile})=>{
 
-    const{setPostId}=useContext(GlobalUserViewContext)
+    const{setPostId,setUserview,setProfileView,setProfile}=useContext(GlobalUserViewContext)
  const [IsLike,setIsLike]=useState(false)
  const[Comments,setComments]=useState()
 const comment = useRef(null)
-const{user}=useContext     
-                                                                                                                                                                                                                                               (GlobalContext)
+const{user}=useContext(GlobalContext)     
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                                                                                                                                                               
 const handlePostComment = async (e)=>{
 e.preventDefault()
 
@@ -33,7 +48,11 @@ const commentRef = doc(db,`posts/${id}/comments/${commentData.id}`)
 await setDoc(commentRef,commentData)
 }
 
-
+const handleViewUser =(e)=>{
+    e && setUserview(e)
+    setProfileView(true)
+    setProfile(false)
+}
 
 
 const handleLikePost = async ()=>{
@@ -137,20 +156,11 @@ return () =>{
 },[id])
 
 
-const[Follows,setFollows]=useState('')
+
 
 useEffect(()=>{
 
-    const followsCollection = collection(db, 'follow');
-    const qFollow = query(followsCollection, where('Username','==',user.username));
-    onSnapshot(qFollow, (snapshot) => {
-      const follows = snapshot.docs.map((doc) => doc.data());
-      setFollows(follows)
-      
-    });
-
-
-   /*   const commentRef = collection(db,`comments`)
+       const commentRef = collection(db,`comments`)
 
     const commentsQuery = query(
         commentRef ,
@@ -161,7 +171,7 @@ useEffect(()=>{
         (snapsot)=>{
             const comments = snapsot.docs.map((doc)=>doc.data())
             console.log(comments)
-        })  */
+        })  
 
 
 
@@ -179,19 +189,19 @@ useEffect(()=>{
     return(
 
         
-        <div className="flex flex-col w-full border border-gray-200">
-        <div className="flex items-center justify-between w-full p-2">
-        <div className="flex items-center justify-center space-x-2 ">
-        <div /* className="w-10 h-10 border-2 bg-black rounded-full" *//>
-          <div className='w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden '>
+        <div className="flex flex-col w-full bg-[#1B4DFF] p-[15px] rounded-[8px]">
+        <div  className="flex items-center justify-between w-full p-2">
+        <div onClick={()=>handleViewUser(username)} className="flex items-center justify-center space-x-2 ">
+        <div  /* className="w-10 h-10 border-2 bg-black rounded-full" *//>
+          <div  className='w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden '>
   <img src={imageProfile} />
   </div>
-         <div>{username}</div>
+         <div className='text-white'>{username}</div>
         
         </div>
         
         
-        <div className="select-none w-4"><BsThreeDots className="text-lg"/></div>
+        <div onClick={()=>alert('chau')} className="select-none w-4"><BsThreeDots className="text-lg"/></div>
         
         </div>
         

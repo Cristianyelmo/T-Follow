@@ -45,7 +45,7 @@ if(name ==='Likes'){
 }
 
     return(
-         <div onClick={handleClickIcon} className='text-black hover:bg-black transition rounded cursor-pointer p-2 hover:text-white '>
+         <div onClick={handleClickIcon} className='text-white hover:bg-black transition rounded cursor-pointer p-2 hover:text-white '>
         <Icon className='' size={25}/>
         </div>
     )

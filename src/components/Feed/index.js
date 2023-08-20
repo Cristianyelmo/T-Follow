@@ -15,20 +15,110 @@ import { useRouter } from "next/router"
 import ModalHeart from "../ModalHeart"
 import ProfileComponent from "../Profile"
 import ProfileViewComponent from "../ProfileView"
+import useFetchCurrentUser from "@/utils/fetchCurrentUser"
+import { onAuthStateChanged } from "firebase/auth"
 const Feed =()=>{
 
    /*  const [IsOpen,setIsOpen] =useState(false) */
-
-   const {isUploadPostModalOpen,NotificationModalOpen} = useContext(GlobalContext)
+   
+   const {isUploadPostModalOpen,NotificationModalOpen,user} = useContext(GlobalContext)
 const dispatch = useContext(GlobalDispatchContext)
 
 const{setUserview,setProfileView,setProfile,Profile,ProfileView,PostId}=useContext(GlobalUserViewContext)
+
 const router = useRouter()
 const handleViewUser =(e)=>{
     e && setUserview(e)
     setProfileView(true)
     setProfile(false)
+
+    dispatch({
+        type:'SET_IS_MODAL_NOTIFICATION',
+        payload:{
+            NotificationModalOpen:false
+        }
+    })
+
 }
+
+const { fetchUser } = useFetchCurrentUser();
+
+
+useEffect(() => {
+   
+    const unsubscribe = onAuthStateChanged(auth,async (user)=>{
+    if(user){
+      dispatch({
+        type:'SET_IS_AUTHENTICATED',
+        payload:{
+          isAuthenticated:true
+        }
+      })
+    
+    const userData = await fetchUser()
+    
+    if(userData){
+    dispatch({
+    type:'SET_USER',
+    payload:{
+      user: userData
+    }
+    
+    
+    })
+    
+    dispatch({
+    type:'SET_IS_ONBOARDED',
+    payload:{
+      isOnboarded:true
+    }
+    
+    
+    })
+    
+    console.log('hola aca estoy')
+    
+    
+    
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    }
+    dispatch({
+      type: 'SET_LOADING',
+      payload:{
+        isLoading: false
+      }
+      
+    })
+    
+    
+    
+    })
+    
+    return ()=>unsubscribe()
+    
+    
+    
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, []); 
+
+
+
+
+
+
+
+
 
 
 
@@ -130,7 +220,7 @@ return ()=>{
 
 
 const currentImage = useRef(null)
-const {user} = useContext(GlobalContext)
+
 
 const handlePostMedia = async (url)=>{
     const postId = uuidv4()
@@ -210,7 +300,8 @@ const [Users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
 
  
-
+console.log(posts)
+console.log(Follows)
 
 
 
@@ -220,15 +311,15 @@ const[FollowNoti,setFollowNoti] = useState()
 
 useEffect(() => {
     setLoading(true);
-
-    const followsCollection = collection(db, 'follow');
+if(user.username){
+        const followsCollection = collection(db, 'follow');
     const qFollow = query(followsCollection, where('Username','==',user.username));
     onSnapshot(qFollow, (snapshot) => {
       const follows = snapshot.docs.map((doc) => doc.data());
       setFollows(follows)
     });
 
-
+}
    
 
    
@@ -264,6 +355,9 @@ const[CommentsNoti,setCommentsNoti]=useState()
 
 const[NotiLikes,setLikesNoti] = useState()
 useEffect(()=>{
+
+if(user.username){
+
     const followsNotificationCollection = collection(db, 'follow');
     const qFollowNotification = query(followsNotificationCollection, where('UserFollow','==',user.username));
     onSnapshot(qFollowNotification, (snapshot) => {
@@ -278,10 +372,10 @@ useEffect(()=>{
      setLikesNoti(likesNotification)
     });
    
+}
 
 
 
-   
 
 
 
@@ -300,7 +394,7 @@ useEffect(()=>{
 
 
     return(
-        <div className='w-full h-full bg-[#FAFAFA]' >
+        <div className='w-full h-full ' >
       <Header/>
 
       <Modal closeModal={closeModal} isOpen={isUploadPostModalOpen}>
@@ -353,10 +447,16 @@ useEffect(()=>{
       
  {
   FollowNoti &&  FollowNoti.map((data)=>
-    <div>
+    <div className='flex cursor-pointer' onClick={()=>handleViewUser(data.Username)}>
    
-   
+   <div className='w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden '>
+  <img src={data.ImageFollow} />
+  </div>
+
+  <div>
+
 <p>{data.Username} te ha seguido</p>
+</div>
 </div>
     
         
@@ -410,21 +510,21 @@ posts.map((post)=>(
 <ProfileViewComponent/> :
 
 
-      <div className='grid w-full grid-cols-3 gap-6 max-w-screen-lg mt-20 mx-auto'>
-      <div className="w-full   col-span-2">
-            <section className="bg-white space-x-4 border-black/10 flex space-x-4 border-gray-400 p-4 overflow-x-scroll">
+      <div className='grid w-full grid-cols-2 gap-6 max-w-screen-lg mt-5 mx-auto'>
+      <div className="w-full  p-[20px]  col-span-2">
+            <section className=" space-x-4 border-black/10 flex space-x-4 border-gray-400 p-4 overflow-x-scroll">
 
 {
 
 
     Users.map((user)=>
-    auth.currentUser.email !== user.email &&
-    <div onClick={()=>handleViewUser(user.username)}>
+   auth.currentUser && auth.currentUser.email !== user.email &&
+    <div onClick={()=>handleViewUser(user.username)} className="bg-[#1B4DFF] p-4 rounded-[8px] shadow-md cursor-pointer">
     <div key={user.id} />
     <div className='w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden '>
   <img src={user.imageProfile} />
   </div>
-    <p>{ user.username}</p>
+    <p className="text-white">{ user.username}</p>
     </div>
 
 
@@ -436,8 +536,8 @@ posts.map((post)=>(
             </section>
             <section className="flex flex-col gap-y-3">
              {
-           posts.map((post)=>(
-Follows.map((postxd)=>(
+  posts &&         posts.map((post)=>(
+Follows && Follows.map((postxd)=>(
 (postxd.UserFollow === post.username ) &&
                     <Post key={post.id} {...post}  />
                     ))

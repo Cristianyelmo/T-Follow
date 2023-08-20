@@ -73,6 +73,7 @@ const[UserView,setUserview]=useState()
 const [Profile,setProfile] = useState(false)
 const [ProfileView,setProfileView] = useState(false)
 const[PostId,setPostId]=useState()
+const[xd,setXd]=useState()
   useEffect(() => {
    
 const unsubscribe = onAuthStateChanged(auth,async (user)=>{
@@ -85,7 +86,7 @@ if(user){
   })
 
 const userData = await fetchUser()
-
+setXd(userData)
 if(userData){
 dispatch({
 type:'SET_USER',
@@ -148,7 +149,8 @@ const contextvalue ={
   setProfileView,
   Profile,
   ProfileView,
-  PostId,setPostId
+  PostId,setPostId,
+ 
 
 }
 

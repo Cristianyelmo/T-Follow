@@ -55,11 +55,13 @@ const handleLogout  = async ()=>{
 
 
     return(
-        <header className='w-full flex items-center justify-around h-16 bg-white shadow-2x1 shawdow-md'>
+        <header className='w-full flex items-center justify-around h-16 bg-[#1B4DFF] shadow-2x1 shawdow-md'>
 
 
         <Link href='/'>
-        <div className='text-x1 font-semibold tracking-wider'>Instagram</div>
+        <div className='text-x1 font-semibold tracking-wider'>
+            <img src='/IconoPrincipal.svg' className='w-[50px] h-[50px]'/>
+        </div>
         
         </Link>
                     

@@ -16,8 +16,8 @@ import {BiLoaderCircle} from 'react-icons/bi'
   LOGIN:false
 }
  */
-
-
+/* import ImageDefault from '' */
+/* import ImageDefault from '../public/PhotoDefault.png' */
 
 import {signInWithEmailAndPassword,createUserWithEmailAndPassword} from 'firebase/auth'
 import {auth, db, storage } from '../../lib/firebase'
@@ -133,21 +133,21 @@ const[MediaProfile,setMediaProfile] = useState({
 
 const setUserData = async()=>{
 
-  const PhotoProfileName =  `PhotoProfile/${FileProfile.name}`
-
-const storageRef = ref(storage,PhotoProfileName) 
-
-
-const uploadTaskprofile = await uploadBytes(storageRef,FileProfile )
-
-const url = await getDownloadURL(uploadTaskprofile.ref) 
+  
 
   try{
 
 
 
 
+    const PhotoProfileName =  `PhotoProfile/${FileProfile.name}`
 
+    const storageRef = ref(storage,PhotoProfileName) 
+    
+    
+    const uploadTaskprofile = await uploadBytes(storageRef,FileProfile )
+    
+    const url = await getDownloadURL(uploadTaskprofile.ref) 
 
 
 
@@ -164,7 +164,7 @@ if(usersSnapshot.docs.length > 0){
    toast.error('username already exists')
    return
 }
-
+const imageUrlDefault ='https://firebasestorage.googleapis.com/v0/b/instagram-clone-app-898ee.appspot.com/o/PhotoDefault.png?alt=media&token=f54b9879-8d70-4f0c-86a9-576dcc0fd18c'
 
 await setDoc(doc(db,'users',auth.currentUser.email),{
 
@@ -172,16 +172,29 @@ fullName:onboardingForm.fullName,
 username:onboardingForm.username,
 email:auth.currentUser.email,
 id:auth.currentUser.uid,
- imageProfile:url ? url : 'boeenas', 
+ imageProfile:!FileProfile ? 'https://firebasestorage.googleapis.com/v0/b/instagram-clone-app-898ee.appspot.com/o/PhotoDefault.png?alt=media&token=4a55416f-27c7-4c0e-a3b2-1c918ee312a3' :url ,
 createdAt:serverTimestamp()
 
 
   
 })
 
+const userData = await fetchUser()
+
+if(userData){
+
+dispatch({
+  type:'SET_USER',
+  payload:{
+    user:userData
+  }
+})
+
+}
+
+
+
 toast.success('welcome to instagram clone by Cris')
-
-
 dispatch({
   type:'SET_IS_ONBOARDED',
   payload:{
@@ -358,13 +371,13 @@ return ()=>{
     
 
 
-    <div className='w-screen h-screen flex items-center justify-center'>
+    <div className='w-screen h-[105vh] flex items-center justify-center'>
     <div><Toaster/></div>
   <div className='flex h-4/5 w-4/5'>
-  <div className='w-full h-full '>
-<Lottie play loop animationData={AuthAnimation} className='w-full h-full'/>
+  <div className='w-full h-full hidden lg:block'>
+{/* <Lottie play loop animationData={AuthAnimation} className='w-full h-full'/> */}
 
-
+<img  src='/IconoPrincipal.svg'    />
 
 
   </div>
@@ -373,9 +386,9 @@ return ()=>{
 
 
 
-<div className='w-full bg-white border flex flex-col border-gray-300 p-10'>
+<div className='w-full  flex flex-col bg-[#1B4DFF] p-10 rounded-md'>
 
-<div className='relative flex flex-col w-full h-full p-18 space-y-5 bg-white border border-gray-300'>
+<div className='relative flex flex-col w-full h-full   bg-[#1B4DFF]  '>
 {isLoading && <LoadingOverlay/>}
 
 
@@ -383,9 +396,15 @@ return ()=>{
   
   
   <form  onSubmit={submitHandler} className='flex flex-col items-center space-y-4'>
-      <div className='tracking-wider text-5x1 my-5'>Instagram</div>
+     {/*  <div className='tracking-wider text-5x1 my-5'>Instagram</div> */}
+     <div className='flex flex-col'>
+     <img className='w-[250px] h-[250px]' src='/IconoPrincipal.svg'    />
+     <p>t-follow</p>
+     </div>
+    
+
      <input type="email" name="email" id="email" onChange={onChangeHandler} value={form.email}
-     className='bg-gray-100 hover:bg-transparent focus:bg-transparent border       py-2 px-3 outline-none w-full rounded-sm focus:border-gray-400' placeholder='Email' />
+     className='bg-[#5C80FF]      py-2 px-3 outline-none w-full rounded-sm focus:border-gray-400' placeholder='Email' />
       <input type='password' name='password' id='password' onChange={onChangeHandler} value={form.password} placeholder='Password' className='bg-gray-100 hover:bg-transparent focus:bg-transparent border   py-2 px-3 outline-none w-full'/>
       
       <button disabled={isDisabled} type='submit' className='w-full bg-[#0095F6] py-2 px-6 text-white active:scale-95 transform transition disabled:bg-[#98b2c3]'>{IsLoginForm ? 'Log In' : 'Sign up'}</button>
@@ -396,15 +415,15 @@ return ()=>{
 
 
     {isAuthenticated && !isOnboarded &&     <form  onSubmit={onboardingSubmitHandler} className='flex flex-col items-center space-y-4'>
-      <div className='tracking-wider text-5x1 my-5'>Instagram</div>
+
 
 
  
 
 {!FileProfile ?<label>
 
-  <div className='w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden '>
-  <img src='/xd.png' />
+  <div className='w-60 h-60 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden border border gray-500 '>
+  <img src='/PhotoDefault.png' />
   </div>
 
 
@@ -440,6 +459,10 @@ return ()=>{
 
 
 
+    <div className='w-full  flex flex-col  text-sm  text-center text-white'>
+   {IsLoginForm ? 'Dont have an account?' : 'Already have an account!'}
+  <button onClick={()=>setIsLoginForm((prev)=>(!prev))}className='text-blue-900 inline-block'>{IsLoginForm ? 'Log In' : 'Sign up'}</button>
+</div>
 
 
 
@@ -448,23 +471,6 @@ return ()=>{
 
 <div className='w-full flex items-center justify-center my-5 space-x-5'>
 
-<div className='h-1 w-full bg-slate-400'></div>
-<div className='text-gray-400 font-semibold text-center text-sm'>Or</div>
-<div className='h-1 w-full bg-slate-400'></div>
-
-
-
-</div>
-
-<div className='w-full text-indigo-900 flex items-center justify-center'>
-<AiFillFacebook className='inline-block text-2x1 mr-2  space-x-2'/>
-<span className='font-semibold text-sm'>Log in with Facebook</span>
-</div>
-
-{IsLoginForm  && <div className='w-full text-center text-indigo-900'>Forgotten you password?</div>}
-
-
-
 
 
 
@@ -472,15 +478,30 @@ return ()=>{
 
 </div>
 
-<div className='w-full bg-white border flex flex-col border-gray-300 text-sm py-5 text-center'>
-   {IsLoginForm ? 'Dont have an account?' : 'Already have an account!'}
-  <button onClick={()=>setIsLoginForm((prev)=>(!prev))}className='text-blue-900 inline-block'>{IsLoginForm ? 'Log In' : 'Sign up'}</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
+
+
+
 
 
 
 
   </div>
+  
   
   </div>
   

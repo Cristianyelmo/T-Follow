@@ -1,11 +1,14 @@
 import { auth, db } from "@/lib/firebase"
 /* import { GlobalContext } from "@/state/context/GlobalContext" */
 import { doc, getDoc } from "firebase/firestore"
+import { useEffect } from "react"
 /* import { useContext } from "react" */
 import { toast } from "react-hot-toast"
 /* import { handlePromise } from "./handlePromise" */
 
 const useFetchCurrentUser = ()=>{
+
+
 
 
 
@@ -31,6 +34,7 @@ const useFetchCurrentUser = ()=>{
         }
 
     return {fetchUser}
+ 
 }
 
 export default useFetchCurrentUser 

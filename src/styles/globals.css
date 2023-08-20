@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body{
+    background-image: url('../../public/xdxd.svg');
+   /*  background: black; */
+}
+
+.background-feed{
+    background-image: url('../../public/xdxd.svg');
+    background-size: cover;
+    background-repeat: repeat;
+}
