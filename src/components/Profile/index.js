@@ -9,7 +9,7 @@ const ProfileComponent = ()=>{
  const {user}=useContext(GlobalContext)  
 
 const[postsProfile,setpostsProfile]=useState([])
-  const[Myuser,setUser]=useState([])  
+  const[Myuser,setUser]=useState([])   
 
 
 const handleDeletePost = async (id)=>{
@@ -23,19 +23,19 @@ const handleDeletePost = async (id)=>{
 
 useEffect(()=>{
   const postsCollection = collection(db, 'posts');
-  const q = query(postsCollection);
+  const q = query(postsCollection,where('username','==',user.username));
   onSnapshot(q, (snapshot) => {
     const posts = snapshot.docs.map((doc) => doc.data());
     setpostsProfile(posts)
   })
 
 
-  const usersCollection = collection(db, 'users');
+   const usersCollection = collection(db, 'users');
   const quser = query(usersCollection,where('id','==' ,auth.currentUser.uid));
   onSnapshot(quser, (snapshot) => {
     const users = snapshot.docs.map((doc) => doc.data());
     setUser(users)
-  })
+  }) 
 
 
  
@@ -58,16 +58,16 @@ useEffect(()=>{
 
 
 
+console.log(postsProfile)
 
-
-
+console.log(user)
 
  return( <div>
 {/*  <Header/> */}
 
  <div>
 
- {  Myuser.map((user)=>( 
+ {  Myuser.map((user)=>(  
 <div className="bg-[#1B4DFF] flex p-7 m-5 rounded-[8px] shadow-md">
 
 
@@ -111,15 +111,15 @@ useEffect(()=>{
 <div >
 
 {
-                postsProfile.map((post)=>(
+    postsProfile.length ?         postsProfile.map((post)=>(
 
-                  post.username === user.username &&
+                  /* post.username === user.username && */
                   <div className="bg-[#1B4DFF]  p-7 m-5 rounded-[8px] shadow-md">
                     <img src={post.image}   />
                     <button onClick={()=>handleDeletePost(post.id)}>Eliminar</button>
                   </div>
                    
-                    ))
+                    )):<p>Nop hay fotos</p>
              }
 
 

@@ -41,76 +41,7 @@ const handleViewUser =(e)=>{
 
 }
 
-const { fetchUser } = useFetchCurrentUser();
 
-
-useEffect(() => {
-   
-    const unsubscribe = onAuthStateChanged(auth,async (user)=>{
-    if(user){
-      dispatch({
-        type:'SET_IS_AUTHENTICATED',
-        payload:{
-          isAuthenticated:true
-        }
-      })
-    
-    const userData = await fetchUser()
-    
-    if(userData){
-    dispatch({
-    type:'SET_USER',
-    payload:{
-      user: userData
-    }
-    
-    
-    })
-    
-    dispatch({
-    type:'SET_IS_ONBOARDED',
-    payload:{
-      isOnboarded:true
-    }
-    
-    
-    })
-    
-    console.log('hola aca estoy')
-    
-    
-    
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-      
-    }
-    dispatch({
-      type: 'SET_LOADING',
-      payload:{
-        isLoading: false
-      }
-      
-    })
-    
-    
-    
-    })
-    
-    return ()=>unsubscribe()
-    
-    
-    
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, []); 
 
 
 
@@ -306,7 +237,7 @@ console.log(Follows)
 
 
 
-const[FollowNoti,setFollowNoti] = useState()
+const[FollowNoti,setFollowNoti] = useState(false)
 
 
 useEffect(() => {
@@ -446,7 +377,7 @@ if(user.username){
         <div className="w-screen h-screen max-w-[70vh] max-h-[70vh] p-6 flex flex-col items-center">
       
  {
-  FollowNoti &&  FollowNoti.map((data)=>
+  FollowNoti.length  ?  FollowNoti.map((data)=>
     <div className='flex cursor-pointer' onClick={()=>handleViewUser(data.Username)}>
    
    <div className='w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden '>
@@ -460,7 +391,9 @@ if(user.username){
 </div>
     
         
-    )
+    ):FollowNoti.length === 0 && NotiLikes.length === 0    ?     <div><p>No tienes notificaciones</p></div> : ""
+    
+    
 } 
 
 

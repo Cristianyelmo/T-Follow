@@ -344,14 +344,14 @@ useEffect(()=>{
 <div>
 
 { 
-                DataOtherUserPost.map((post)=>(
+     DataOtherUserPost.length ?   DataOtherUserPost.map((post)=>(
 
               /*     post.username === UserView && */
                   <div>
                     <img src={post.image}   />
                   </div>
                    
-                    ))
+                    )):<p>No hay fotos</p>
              
  }
 
