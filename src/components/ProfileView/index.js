@@ -274,7 +274,11 @@ useEffect(()=>{
 
 
 
- return( <div>
+ return( 
+  <div className='grid w-full grid-cols-2 gap-6 max-w-screen-lg mt-5 mx-auto'>
+  <div className="w-full  p-[20px]  col-span-2">
+ 
+ <div>
 
 
  <div>
@@ -291,7 +295,7 @@ useEffect(()=>{
 
 
 
-<div className="bg-[#1B4DFF] flex p-7 m-5 rounded-[8px] shadow-md">
+<div className="bg-[#1B4DFF] flex px-7 py-7 my-5 rounded-[8px] shadow-md">
  <div className='w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden '>
   <img src={data.imageProfile} />
   </div>
@@ -363,6 +367,8 @@ useEffect(()=>{
 
  </div>
   </div>
+  </div>
+</div>
 
 )
 

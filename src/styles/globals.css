@@ -12,3 +12,54 @@ body{
     background-size: cover;
     background-repeat: repeat;
 }
+
+.emoji-picker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height:100vh;
+ }
+ .selected-emoji {
+    font-size: 5rem;
+ }
+ .emoji-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background-color: #f2f2f2;
+    padding: 16px;
+    font-size: 3rem;
+    margin-top: 1rem;
+ }
+ .emoji-item {
+    padding: 8px;
+    cursor: pointer;
+ }
+
+ .scroll-container {
+    white-space: nowrap;
+    overflow-x: auto;
+    display: flex;
+  }
+
+  
+
+  
+
+
+
+  @media (max-width: 430px) {
+   header {
+     display: flex;
+     flex-direction: column;
+  
+   }
+
+   .iconoPrincipal{
+      width: 70px;
+      height: 70px;
+   }
+   .Iconos{
+      padding-bottom: 10px;
+   }
+ }

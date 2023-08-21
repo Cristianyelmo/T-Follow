@@ -1,33 +1,33 @@
 /* import Header from "@/components/Header" */
 import { auth, db } from "@/lib/firebase"
 import { GlobalContext, GlobalUserViewContext } from "../../state/context/GlobalContext"
-import { collection, deleteDoc, doc, onSnapshot, query, where } from "firebase/firestore"
+import { collection, deleteDoc, doc, onSnapshot, orderBy, query, where } from "firebase/firestore"
 import { useContext, useEffect, useState } from "react"
 
+import MyPost from "../MyPost"
+
 const ProfileComponent = ()=>{
- 
+
  const {user}=useContext(GlobalContext)  
 
-const[postsProfile,setpostsProfile]=useState([])
+const[postsProfile,setpostsProfile]=useState([]) 
   const[Myuser,setUser]=useState([])   
 
+/* const[Comments,setComments]=useState()
+console.log(Comments) */
 
-const handleDeletePost = async (id)=>{
-  const PostRef = doc(db,`posts/${id}`)
-    await deleteDoc(PostRef);
-}
 
 
 
 
 
 useEffect(()=>{
-  const postsCollection = collection(db, 'posts');
+   const postsCollection = collection(db, 'posts');
   const q = query(postsCollection,where('username','==',user.username));
   onSnapshot(q, (snapshot) => {
     const posts = snapshot.docs.map((doc) => doc.data());
     setpostsProfile(posts)
-  })
+  }) 
 
 
    const usersCollection = collection(db, 'users');
@@ -37,10 +37,23 @@ useEffect(()=>{
     setUser(users)
   }) 
 
-
- 
+/* 
+   let commentRef = collection(db,`posts/${post.id}/comments`)
   
 
+  
+
+let commentsQuery = query(
+    commentRef,
+    orderBy('createdAt','desc')
+)
+
+onSnapshot(commentsQuery,
+    (snapsot)=>{
+        const comments = snapsot.docs.map((doc)=>doc.data())
+        setComments(comments)
+    }) */
+    
 
 
 
@@ -58,17 +71,22 @@ useEffect(()=>{
 
 
 
-console.log(postsProfile)
 
-console.log(user)
 
- return( <div>
-{/*  <Header/> */}
+ return( 
+  <div className='grid w-full grid-cols-2 gap-6 max-w-screen-lg mt-5 mx-auto'>
+  <div className="w-full  p-[20px]  col-span-2">
+ <div>
+
 
  <div>
 
+
+
+
+
  {  Myuser.map((user)=>(  
-<div className="bg-[#1B4DFF] flex p-7 m-5 rounded-[8px] shadow-md">
+<div className="bg-[#1B4DFF] flex px-7 py-7 my-5  rounded-[8px] shadow-md">
 
 
  <div className='w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden '>
@@ -114,10 +132,12 @@ console.log(user)
     postsProfile.length ?         postsProfile.map((post)=>(
 
                   /* post.username === user.username && */
-                  <div className="bg-[#1B4DFF]  p-7 m-5 rounded-[8px] shadow-md">
+                 /*  <div className="bg-[#1B4DFF]  p-7 m-5 rounded-[8px] shadow-md">
                     <img src={post.image}   />
                     <button onClick={()=>handleDeletePost(post.id)}>Eliminar</button>
                   </div>
+ */
+                  <MyPost key={post.id} {...post}/>
                    
                     )):<p>Nop hay fotos</p>
              }
@@ -131,7 +151,8 @@ console.log(user)
 
  </div>
   </div>
-
+</div>
+</div>
 )
 
    }

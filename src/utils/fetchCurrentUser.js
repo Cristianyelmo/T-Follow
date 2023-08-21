@@ -20,7 +20,7 @@ const useFetchCurrentUser = ()=>{
         const currentUserSnap = await getDoc(currentUserRef)
         
         if(currentUserSnap.exists()){
-        console.log(currentUserSnap.data())
+       
          return currentUserSnap.data()
         
         

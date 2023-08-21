@@ -17,6 +17,7 @@ import ProfileComponent from "../Profile"
 import ProfileViewComponent from "../ProfileView"
 import useFetchCurrentUser from "@/utils/fetchCurrentUser"
 import { onAuthStateChanged } from "firebase/auth"
+import MyPost from "../MyPost"
 const Feed =()=>{
 
    /*  const [IsOpen,setIsOpen] =useState(false) */
@@ -231,8 +232,7 @@ const [Users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
 
  
-console.log(posts)
-console.log(Follows)
+
 
 
 
@@ -269,19 +269,32 @@ if(user.username){
     });
   }, []);
 const[CommentsNoti,setCommentsNoti]=useState()
-
+/* const[postsProfile,setpostsProfile]=useState([]) */
   useEffect(() => {
     setLoading(true);
     const userscollection = collection(db, 'users');
     const q = query(userscollection, orderBy('fullName', 'asc'));
     onSnapshot(q, (snapshot) => {
       const usersStory = snapshot.docs.map((doc) => doc.data());
-   console.log(usersStory)
+  
     setUsers(usersStory)
       setLoading(false);
 
    
     });
+
+   /*  const postsCollection = collection(db, 'posts');
+    const qPost = query(postsCollection,where('username','==',user.username));
+    onSnapshot(qPost, (snapshot) => {
+      const posts = snapshot.docs.map((doc) => doc.data());
+      setpostsProfile(posts)
+    
+    }); */
+
+
+
+
+
   }, []);
 
 const[NotiLikes,setLikesNoti] = useState()
@@ -374,19 +387,19 @@ if(user.username){
               </div>
       </Modal>
         <ModalHeart closeModal={closeModalHeart} isOpen={NotificationModalOpen}>
-        <div className="w-screen h-screen max-w-[70vh] max-h-[70vh] p-6 flex flex-col items-center">
+        <div className="w-screen h-screen max-w-[70vh] max-h-[70vh] p-6 flex flex-col  bg-[#1B4DFF]">
       
  {
   FollowNoti.length  ?  FollowNoti.map((data)=>
-    <div className='flex cursor-pointer' onClick={()=>handleViewUser(data.Username)}>
+    <div className='flex cursor-pointer items-center p-2' onClick={()=>handleViewUser(data.Username)}>
    
    <div className='w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden '>
   <img src={data.ImageFollow} />
   </div>
 
-  <div>
+  <div className="  ml-[10px]">
 
-<p>{data.Username} te ha seguido</p>
+<p className="text-white ml-30px">{data.Username} te ha seguido</p>
 </div>
 </div>
     
@@ -402,11 +415,13 @@ if(user.username){
 NotiLikes && NotiLikes.map((data)=>
 posts.map((post)=>(
     data.postId === post.id &&
-<div className="flex">
+<div className="flex cursor-pointer items-center p-2">
+<div className='w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden '>
+  <img src={post.imageProfile} />
+  </div>
 
-
-<p>{data.UserWhoGiveLike} te ha dado me gusta a esta foto</p>
-<img src={post.image}  className="w-[60px] h-[60px]"  />
+<p className="text-white ml-[10px]">{data.UserWhoGiveLike} te ha dado me gusta a esta foto</p>
+<img src={post.image}  className="w-[90px] h-[70px] mr-[10px]"  />
 </div>
 
     
@@ -439,13 +454,21 @@ posts.map((post)=>(
         </ModalHeart>
 
 
-{Profile ? <ProfileComponent/> : ProfileView ?
+{Profile ?
+
+<ProfileComponent  />
+
+
+
+
+
+: ProfileView ?
 <ProfileViewComponent/> :
 
 
       <div className='grid w-full grid-cols-2 gap-6 max-w-screen-lg mt-5 mx-auto'>
       <div className="w-full  p-[20px]  col-span-2">
-            <section className=" space-x-4 border-black/10 flex space-x-4 border-gray-400 p-4 overflow-x-scroll">
+            <section className=" space-x-4 border-black/10 flex space-x-4 border-gray-400 p-4 overflow-x-scroll bg-[#6283fb] rounded-[8px]   ">
 
 {
 
@@ -468,11 +491,14 @@ posts.map((post)=>(
 
             </section>
             <section className="flex flex-col gap-y-3">
+
+ 
+
              {
   posts &&         posts.map((post)=>(
 Follows && Follows.map((postxd)=>(
-(postxd.UserFollow === post.username ) &&
-                    <Post key={post.id} {...post}  />
+ (postxd.UserFollow === post.username )  ?
+                    <Post key={post.id} {...post}  />:""
                     ))
                     ))
              }

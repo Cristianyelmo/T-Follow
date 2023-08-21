@@ -8,9 +8,11 @@ import { IoShareOutline } from 'react-icons/io5'
 import { uuidv4 } from '@firebase/util';
 import { comment } from 'postcss'
 import { GlobalContext, GlobalUserViewContext } from '@/state/context/GlobalContext'
-import { onAuthStateChanged } from 'firebase/auth'
-import useFetchCurrentUser from '@/utils/fetchCurrentUser'
-const Post = ({id,username,image,caption,likesCount,imageProfile})=>{
+import { PickerStyles } from 'emoji-mart'
+import EmojiPicker from 'emoji-picker-react'
+
+
+const MyPost = ({id,username,image,caption,likesCount,imageProfile})=>{
 
     const{setPostId,setUserview,setProfileView,setProfile}=useContext(GlobalUserViewContext)
  const [IsLike,setIsLike]=useState(false)
@@ -24,7 +26,10 @@ const{user}=useContext(GlobalContext)
 
 
 
-
+const handleDeletePost = async (id)=>{
+    const PostRef = doc(db,`posts/${id}`)
+      await deleteDoc(PostRef);
+  }
 
 
 
@@ -167,24 +172,66 @@ return () =>{
 
 
 
+ const[inputStr,setInputStr]=useState('')
+const[showPicker,setShowPicker]=useState(false)
+
+   const handleEmojiClick = emoji => {
+    const updatedValue = inputStr + emoji;
+  
+    setInputStr( updatedValue);
+    setShowPicker(false)
+   };
+
+   
+   const emojis = [
+      { name: "smiling face with heart-eyes", unicode: "😍", code: ":heart_eyes:" },
+      { name: "grinning face", unicode: "😎 ", code: ":grinning:" },
+      { name: "winking face", unicode: "❤️ ", code: ":wink:" },
+      { name: "smiling face", unicode: "🤣  ", code: ":smile:" },
+      { name: "slightly smiling face", unicode: "😳 ", code: ":slightly_smiling_face:" },
+      { name: "kissing face", unicode: "😒 ", code: ":kissing_face:" }
+   ];
+
+
+
 
 
     return(
 
         
-        <div className="flex flex-col w-full bg-[#1B4DFF] p-[15px] rounded-[8px] mt-[15px] border-black/10">
-        <div  className="flex items-center justify-between w-full py-2">
-        <div onClick={()=>handleViewUser(username)} className="flex items-center justify-center space-x-2 ">
+        <div className="flex flex-col w-full bg-[#1B4DFF] p-[15px] rounded-[8px] ">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div  className="flex items-center justify-between w-full p-2">
+        <div  className="flex items-center justify-center space-x-2 ">
         <div  /* className="w-10 h-10 border-2 bg-black rounded-full" *//>
-          <div  className='w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden '>
-  <img src={imageProfile} />
-  </div>
-         <div className='text-white'>{username}</div>
+ 
+        
         
         </div>
         
         
-        <div onClick={()=>alert('chau')} className="select-none w-4"><BsThreeDots className="text-lg"/></div>
+        <div onClick={()=>handleDeletePost(id)} className="select-none w-4"><BsThreeDots className="text-lg"/></div>
         
         </div>
         
@@ -199,16 +246,18 @@ return () =>{
 <div onClick={handleLikePost}>
 {
     IsLike ? <AiFillHeart size={25} className='text-red-500 hover:text-black/50 cursor-pointer'/> :
-    <AiOutlineHeart size={25} className='text-white hover:text-red/50 cursor-pointer'/>
+    <AiOutlineHeart size={25} className='text-black hover:text-red/50 cursor-pointer'/>
 }
     
 
 
 
 </div>
-<div className='text-white'>
-           {likesCount ?`${likesCount} likes` : '0 likes'} 
+        <div>
+<FaRegComment size={25} className='text-black hover:text-black/50 cursor-pointer'/>
+
         </div>
+   
 
         </div>
 
@@ -217,8 +266,10 @@ return () =>{
         </div>
 
 
-        
-        <div className='p-2 text-xl text-white'>
+        <div className='p-2'>
+           {likesCount ?`${likesCount} likes` : 'you can be the first in give it like'} 
+        </div>
+        <div className='p-2'>
             {caption}
         </div>
         <div className='px-2'>
@@ -239,23 +290,53 @@ return () =>{
         </div>
         
         </div>
-    
+
 
         <div className='flex items-center px-2 mt-1 space-x-3  py-4 border-t border-gray-200'>
-<div>
-   <BsEmojiSmile className='text-xl text-white'/> 
+            
+       
+ 
+
+
+
+<form onSubmit={handlePostComment} className='flex flex-col w-full px-2'>
+<div className='flex'>
+<div onClick={()=>setShowPicker(val => !val)}>
+   <BsEmojiSmile className='text-xl cursor-pointer' /> 
 </div>
-<form onSubmit={handlePostComment} className='flex w-full px-2'>
+
+
+
 
 <div  className='w-full'>
     <input type="text" 
     name={`comment ${id}`} 
     id={`comment ${id}`}
-    className='w-full outline-none p-2 rounded-[3px]  ' placeholder='Add a comment..' ref={comment} />
+    className='w-full outline-none ' 
+     placeholder='Add a comment..' value={inputStr} onChange={(e)=>setInputStr(e.target.value)}   ref={comment} />
 </div>
-<div >
-<button className='text-lg font-semibold ml-5 mt-1  text-white'>Post</button>
+
+<div>
+<button className='text-lg font-semibold   text-blue-600'>Post</button>
 </div>
+</div>
+{
+   showPicker && <div className="" id='emoji-picker'>
+   
+      <div className="flex"> 
+         {Object.keys(emojis).map(emoji => (
+         <span
+            key={emoji}
+            onClick={() =>
+            handleEmojiClick(emojis[emoji].unicode)}
+            className="emoji-item" >
+            {emojis[emoji].unicode}
+         </span>
+      ))}
+   </div>
+</div>
+}
+
 
 
 
@@ -280,4 +361,4 @@ return () =>{
     )
 }
 
-export default Post
+export default MyPost
