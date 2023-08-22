@@ -377,7 +377,7 @@ return ()=>{
   <div className='w-full h-full hidden lg:block'>
 {/* <Lottie play loop animationData={AuthAnimation} className='w-full h-full'/> */}
 
-<img  src='/IconoPrincipal.svg'    />
+<img  src='https://firebasestorage.googleapis.com/v0/b/instagram-clone-app-898ee.appspot.com/o/IconoPrincipal.svg?alt=media&token=80077db2-837f-473e-aa16-a5cfd5bd05d3'    />
 
 
   </div>
@@ -398,7 +398,7 @@ return ()=>{
   <form  onSubmit={submitHandler} className='flex flex-col items-center space-y-4'>
      {/*  <div className='tracking-wider text-5x1 my-5'>Instagram</div> */}
      <div className='flex flex-col'>
-     <img className='w-[250px] h-[250px]' src='/IconoPrincipal.svg'    />
+     <img className='w-[250px] h-[250px]' src='https://firebasestorage.googleapis.com/v0/b/instagram-clone-app-898ee.appspot.com/o/IconoPrincipal.svg?alt=media&token=80077db2-837f-473e-aa16-a5cfd5bd05d3'    />
      <p>t-follow</p>
      </div>
     
@@ -426,7 +426,7 @@ return ()=>{
     <div className='desva absolute w-full bg-black bg-opacity-50 items-center'>
    <AiFillCamera className='w-[80px] h-[800px] text-white ml-[80px]'/>
   </div>
-  <img src='/PhotoDefault.png' />
+  <img src='https://firebasestorage.googleapis.com/v0/b/instagram-clone-app-898ee.appspot.com/o/IconoPrincipal.svg?alt=media&token=80077db2-837f-473e-aa16-a5cfd5bd05d3' />
   
   </div> 
 
