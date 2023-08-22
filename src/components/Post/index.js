@@ -66,7 +66,8 @@ const handleLikePost = async ()=>{
     postId:id,
     userId:auth.currentUser.uid,
     username,
-    UserWhoGiveLike :user.username
+    UserWhoGiveLike :user.username,
+    PhotoWhoGiveLike:user.imageProfile
 
    }
 

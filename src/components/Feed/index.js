@@ -417,7 +417,7 @@ posts.map((post)=>(
     data.postId === post.id &&
 <div className="flex cursor-pointer items-center p-2">
 <div className='w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden '>
-  <img src={post.imageProfile} />
+  <img src={data.PhotoWhoGiveLike} />
   </div>
 
 <p className="text-white ml-[10px]">{data.UserWhoGiveLike} te ha dado me gusta a esta foto</p>
