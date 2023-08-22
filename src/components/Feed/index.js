@@ -340,10 +340,10 @@ if(user.username){
     return(
         <div className='w-full h-full ' >
       <Header/>
-
+ 
       <Modal closeModal={closeModal} isOpen={isUploadPostModalOpen}>
-        <div className="w-screen h-screen max-w-[70vh] max-h-[70vh] p-6 flex flex-col items-center">
-            <div className="w-full py-4 text-xl text-center border-b border-black font-semibold">Create new post</div>
+        <div className="w-screen h-screen max-w-[70vh] max-h-[70vh] p-6 flex flex-col items-center bg-[#1B4DFF]">
+            <div className="w-full py-4 text-xl text-center border-b border-white font-semibold text-white">Create new post</div>
               
 
 
@@ -366,7 +366,7 @@ if(user.username){
                     </>)
                 :
                     (<div className="flex flex-col p-5 gap-y-4">
-                    <input type="image" src={Media.src} className="w-full" ref={currentImage}/> 
+                    <input type="image" src={Media.src} className=" h-[200px]" ref={currentImage} /> 
                     <input type='text' name='caption' id='caption' placeholder='Type your caption (optional...)'
                     onChange={(e)=>setMedia((prev)=>({...prev,caption:e.target.value}))} 
                     value={Media.caption}    className="w-full px-2 py-1 bg-gray-100 border rounded-sm outline-none hover:bg-transparent focus:bg-transparent placeholader:text-sm focus:border-gray-400"/>

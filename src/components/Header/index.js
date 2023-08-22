@@ -58,12 +58,12 @@ const handleLogout  = async ()=>{
         <header className='w-full flex items-center justify-between bg-[#1B4DFF] shadow-2x1 shawdow-md'>
 
 
-        <div className='flex justify-around'>
-        <div className='text-x1 font-semibold tracking-wider'>
+        <div className='photo-letra flex justify-around items-center ml-3'>
+        <div className='text-x1 font-semibold tracking-wider mr-4'>
             <img src='/IconoPrincipal.svg' className='w-[100px] h-[100px] iconoPrincipal'/>
         </div>
-        <div className='flex justify-center'>
-            <p className='text-white mt-[20px]'>T-follow</p>
+        <div className='flex justify-center mb-[12px]'>
+            <p className='text-white mt-[20px] text-xl'>T-follow</p>
         </div>
 
         </div>
@@ -78,7 +78,7 @@ const handleLogout  = async ()=>{
         
         
                     
-                    <div className='flex space-x-2 Iconos'>
+                    <div className='icons-logout flex space-x-2 Iconos mr-4'>
         
                         <div className='flex space-x-4'>
                         {

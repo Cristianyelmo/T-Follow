@@ -5,7 +5,7 @@ import Lottie from 'react-lottie-player'
 import AuthAnimation from '../../../public/assets/animations/auth-page-animation.json' 
 /* import img from 'public/Cat03.jpg' */
 import useForm from '../../hooks/useForm'
-import{AiFillFacebook} from 'react-icons/ai'
+import{AiFillCamera, AiFillFacebook} from 'react-icons/ai'
 import {
   GlobalContext,
   GlobalDispatchContext,
@@ -422,10 +422,16 @@ return ()=>{
 
 {!FileProfile ?<label>
 
-  <div className='w-60 h-60 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden border border gray-500 '>
-  <img src='/PhotoDefault.png' />
+   <div className=' relative desvanecer w-60 h-60 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden border border gray-500 '>
+    <div className='desva absolute w-full bg-black bg-opacity-50 items-center'>
+   <AiFillCamera className='w-[80px] h-[800px] text-white ml-[80px]'/>
   </div>
+  <img src='/PhotoDefault.png' />
+  
+  </div> 
 
+
+  
 
 
 <input onChange={(e)=>setFileProfile(e.target.files[0])} 

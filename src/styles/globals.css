@@ -62,4 +62,43 @@ body{
    .Iconos{
       padding-bottom: 10px;
    }
+
+.photo-letra{
+   margin-left: 0px;
+}
+
+.icons-logout{
+   margin-right: 0px;
+}
+
+
  }
+
+ .div-imagen {
+   display:inline-block;
+   position:relative;
+ }
+ 
+ .div-imagen > div {
+   position:absolute;
+   top:0;
+   left:0;
+   z-index:-1;
+   padding:10px;
+   margin:0;
+ }
+ 
+ /* .desvanecer:hover {
+   opacity: 0.07;
+   
+ } */
+
+ .desva {
+  opacity: 0;
+   
+ }
+
+ .desva:hover {
+   opacity: 1
+   
+ } 

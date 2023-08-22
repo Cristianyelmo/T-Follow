@@ -1,7 +1,7 @@
 import { auth, db } from '@/lib/firebase'
 import { collection, deleteDoc, doc, getDoc, onSnapshot, orderBy, query, serverTimestamp, setDoc, updateDoc, where } from 'firebase/firestore'
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { AiFillDelete, AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { BsBookmark, BsEmojiSmile, BsThreeDots } from 'react-icons/bs'
 import { FaRegComment } from 'react-icons/fa'
 import { IoShareOutline } from 'react-icons/io5'
@@ -10,8 +10,7 @@ import { comment } from 'postcss'
 import { GlobalContext, GlobalUserViewContext } from '@/state/context/GlobalContext'
 import { onAuthStateChanged } from 'firebase/auth'
 import useFetchCurrentUser from '@/utils/fetchCurrentUser'
-import Swal from 'sweetalert2'
-const MyPost = ({id,username,image,caption,likesCount,imageProfile})=>{
+const PostFollow = ({id,username,image,caption,likesCount,imageProfile})=>{
 
     const{setPostId,setUserview,setProfileView,setProfile}=useContext(GlobalUserViewContext)
  const [IsLike,setIsLike]=useState(false)
@@ -22,31 +21,7 @@ const{user}=useContext(GlobalContext)
 
 
 
-const handleDeletePost = async (id)=>{
-    Swal.fire ({
-        title: 'Quieres Eliminar el Post?',
-        showDenyButton: true,
-        background:'#1B4DFF',
-         color: 'white',
-        confirmButtonText: 'Eliminar',
-        denyButtonText: `No eliminar`,
-      }).then((result)  => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          Swal.fire({title:'Post eliminado',
-          background:'#1B4DFF',
-         color: 'white'})
-           const PostRef = doc(db,`posts/${id}`)
-       deleteDoc(PostRef);
-        } else if (result.isDenied) {
-          Swal.fire({title:'Post no eliminado',
-        background:'#1B4DFF',
-         color: 'white'})
-        }
-      })
-    
-   
-  }
+
 
 
 
@@ -74,7 +49,11 @@ const commentRef = doc(db,`posts/${id}/comments/${commentData.id}`)
 await setDoc(commentRef,commentData)
 }
 
-
+const handleViewUser =(e)=>{
+    e && setUserview(e)
+    setProfileView(true)
+    setProfile(false)
+}
 
 
 const handleLikePost = async ()=>{
@@ -215,20 +194,14 @@ const[showPicker,setShowPicker]=useState(false)
         
         <div className="flex flex-col w-full bg-[#1B4DFF] p-[15px] rounded-[8px] mt-[15px] border-black/10">
         <div  className="flex items-center justify-between w-full py-2">
-        <div></div>
-        <div  onClick={()=>handleDeletePost(id)} className="cursor-pointer text-white bg-[#ff0000] p-2 ">
-       
-       
-       
-     
-         
-          <AiFillDelete className=' text-right'/>
-        
+        <div onClick={()=>handleViewUser(username)} className="flex items-center justify-center space-x-2 ">
+        <div  /* className="w-10 h-10 border-2 bg-black rounded-full" *//>
+      
         
         </div>
         
         
-        
+        <div onClick={()=>alert('chau')} className="select-none w-4"><BsThreeDots className="text-lg"/></div>
         
         </div>
         
@@ -342,4 +315,4 @@ const[showPicker,setShowPicker]=useState(false)
     )
 }
 
-export default MyPost
+export default PostFollow

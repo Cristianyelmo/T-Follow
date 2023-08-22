@@ -3,6 +3,7 @@ import { auth, db } from "@/lib/firebase"
 import { GlobalContext, GlobalUserViewContext } from "@/state/context/GlobalContext"
 import { collection, deleteDoc, doc, onSnapshot, query, setDoc, updateDoc, where } from "firebase/firestore"
 import { useContext, useEffect, useState } from "react"
+import PostFollow from "../PostFollow"
 
 const ProfileViewComponent = ()=>{
 
@@ -305,15 +306,15 @@ useEffect(()=>{
 <button onClick={handleFollow} className={!Follow ? 'w-[90px] bg-[#0095F6] py-2 px-6 text-white active:scale-95 transform transition disabled:bg-[#98b2c3]' :'w-[120px] bg-white py-2 px-6 text-black active:scale-95  border-red transform transition disabled:bg-[#98b2c3] '} disabled={disabledFollow}>{!Follow ? 'Seguir' : 'No Seguir'} </button>
 
   </div>
-<p>{data.username}</p>
+<p className="text-white">{data.username}</p>
 </div>
 
 
 
 
 <div className="flex ">
-<h2>{data.FollowCount ? data.FollowCount:"0" } seguidores</h2>
-<h2 className="ml-3 ">{data.FollowWhoCount ? data.FollowWhoCount : "0"} seguidos</h2>
+<h2 className="text-white">{data.FollowCount ? data.FollowCount:"0" } seguidores</h2>
+<h2 className="ml-3 text-white ">{data.FollowWhoCount ? data.FollowWhoCount : "0"} seguidos</h2>
 
 </div>
 
@@ -351,9 +352,7 @@ useEffect(()=>{
      DataOtherUserPost.length ?   DataOtherUserPost.map((post)=>(
 
               /*     post.username === UserView && */
-                  <div>
-                    <img src={post.image}   />
-                  </div>
+              <PostFollow key={post.id} {...post}/>
                    
                     )):<p>No hay fotos</p>
              

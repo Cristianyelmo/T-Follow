@@ -33,6 +33,7 @@ const{user}=useContext(GlobalContext)
                                                                                                                                                                                                                                                
 const handlePostComment = async (e)=>{
 e.preventDefault()
+setInputStr('')
 
 const commentData ={
     id: uuidv4(),
@@ -165,6 +166,25 @@ return () =>{
     data.UserFollow === username  
 }) */
 
+const[inputStr,setInputStr]=useState('')
+const[showPicker,setShowPicker]=useState(false)
+
+   const handleEmojiClick = emoji => {
+    const updatedValue = inputStr + emoji;
+  
+    setInputStr( updatedValue);
+    setShowPicker(false)
+   };
+
+   
+   const emojis = [
+      { name: "smiling face with heart-eyes", unicode: "😍", code: ":heart_eyes:" },
+      { name: "grinning face", unicode: "😎 ", code: ":grinning:" },
+      { name: "winking face", unicode: "❤️ ", code: ":wink:" },
+      { name: "smiling face", unicode: "🤣  ", code: ":smile:" },
+      { name: "slightly smiling face", unicode: "😳 ", code: ":slightly_smiling_face:" },
+      { name: "kissing face", unicode: "😒 ", code: ":kissing_face:" }
+   ];
 
 
 
@@ -174,7 +194,7 @@ return () =>{
         
         <div className="flex flex-col w-full bg-[#1B4DFF] p-[15px] rounded-[8px] mt-[15px] border-black/10">
         <div  className="flex items-center justify-between w-full py-2">
-        <div onClick={()=>handleViewUser(username)} className="flex items-center justify-center space-x-2 ">
+        <div onClick={()=>handleViewUser(username)} className="flex items-center justify-center space-x-2 cursor-pointer">
         <div  /* className="w-10 h-10 border-2 bg-black rounded-full" *//>
           <div  className='w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden '>
   <img src={imageProfile} />
@@ -227,8 +247,8 @@ return () =>{
             { Comments && Comments.map((commentData)=>(
             <div key={commentData.id} className='flex space-x-2'>
                 
-                <div className='font-medium'>{commentData.username} </div>
-                <div> {commentData.comment}</div>
+                <div className='font-bold text-white'>{commentData.username} </div>
+                <div  className=' text-white'> {commentData.comment}</div>
               
                 
                 
@@ -242,23 +262,41 @@ return () =>{
     
 
         <div className='flex items-center px-2 mt-1 space-x-3  py-4 border-t border-gray-200'>
-<div>
-   <BsEmojiSmile className='text-xl text-white'/> 
+
+<form onSubmit={handlePostComment} className='flex flex-col w-full px-2'>
+<div className='flex'>
+<div  onClick={()=>setShowPicker(val => !val)} className='mr-4 mt-3'>
+   <BsEmojiSmile className='text-xl text-white cursor-pointer'/> 
 </div>
-<form onSubmit={handlePostComment} className='flex w-full px-2'>
+
 
 <div  className='w-full'>
     <input type="text" 
     name={`comment ${id}`} 
     id={`comment ${id}`}
-    className='w-full outline-none p-2 rounded-[3px]  ' placeholder='Add a comment..' ref={comment} />
+    className='w-full outline-none p-2 rounded-[3px]  ' placeholder='Add a comment..' value={inputStr} onChange={(e)=>setInputStr(e.target.value)}  ref={comment} />
 </div>
 <div >
 <button className='text-lg font-semibold ml-5 mt-1  text-white'>Post</button>
 </div>
+</div>
 
-
-
+{
+   showPicker && <div className="" id='emoji-picker'>
+   
+      <div className="flex"> 
+         {Object.keys(emojis).map(emoji => (
+         <span 
+            key={emoji}
+            onClick={() =>
+            handleEmojiClick(emojis[emoji].unicode)}
+            className="bg-[#6283fb] p-1 mx-1 my-1 cursor-pointer rounded-[2px]" >
+            {emojis[emoji].unicode}
+         </span>
+      ))}
+   </div>
+</div>
+}
 
 
 
