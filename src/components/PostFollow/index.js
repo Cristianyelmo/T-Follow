@@ -19,7 +19,7 @@ const comment = useRef(null)
 const{user}=useContext(GlobalContext)     
 
 
-
+const[disabledFollow,setDisabled] = useState(false)
 
 
 
@@ -57,56 +57,63 @@ const handleViewUser =(e)=>{
 
 
 const handleLikePost = async ()=>{
-   /*  setIsLike((prevState)=>!prevState) */
-
-   const postLike ={
-    postId:id,
-    userId:auth.currentUser.uid,
-    username,
-    UserWhoGiveLike :user.username
-
-   }
-
-const likeRef = doc(db,`likes/${id}_${auth.currentUser.uid}`)
-const postRef = doc(db,`posts/${id}`)
-
-
-let updatedLikeCount 
-
-
-
-
-
-if(IsLike){
-await deleteDoc(likeRef);
-if(likesCount){
-    updatedLikeCount= likesCount -1
-}else{
-    updatedLikeCount=0
-}
-
-await updateDoc(postRef,{
-likesCount:likesCount  - 1
-})
-}else{
-    await setDoc(likeRef,postLike);
-    if(likesCount){
-        updatedLikeCount= likesCount +1
-    }else{
-        updatedLikeCount=1
+    /*  setIsLike((prevState)=>!prevState) */
+    setDisabled(true)
+ 
+    try{
+ 
+    const postLike ={
+     postId:id,
+     userId:auth.currentUser.uid,
+     username,
+     UserWhoGiveLike :user.username,
+ PhotoWhoGiveLike:user.imageProfile
     }
-    
-    await updateDoc(postRef,{
-        likesCount:likesCount || 0 + 1
-        })
-}
-
-
-
-
-
-}
-
+ 
+ const likeRef = doc(db,`likes/${id}_${auth.currentUser.uid}`)
+ const postRef = doc(db,`posts/${id}`)
+ 
+ 
+ let updatedLikeCount 
+ 
+ 
+ 
+ 
+ 
+ if(IsLike){
+ await deleteDoc(likeRef);
+ if(likesCount){
+     updatedLikeCount= likesCount -1
+ }else{
+     updatedLikeCount=0
+ }
+ 
+ await updateDoc(postRef,{
+ likesCount:updatedLikeCount
+ })
+ }else{
+     await setDoc(likeRef,postLike);
+     if(likesCount){
+         updatedLikeCount= likesCount +1
+     }else{
+         updatedLikeCount=1
+     }
+     
+     await updateDoc(postRef,{
+         likesCount:updatedLikeCount 
+         })
+ }
+ 
+ 
+ }catch (error) {
+     console.error
+   }finally {
+     setDisabled(false)
+   }
+   
+ 
+ 
+ }
 
 
 
@@ -213,16 +220,8 @@ const[showPicker,setShowPicker]=useState(false)
 
         <div className='flex space-x-2'>
 
-<div onClick={handleLikePost}>
-{
-    IsLike ? <AiFillHeart size={25} className='text-red-500 hover:text-black/50 cursor-pointer'/> :
-    <AiOutlineHeart size={25} className='text-white hover:text-red/50 cursor-pointer'/>
-}
-    
-
-
-
-</div>
+        <button onClick={handleLikePost} disabled={disabledFollow}>{IsLike ?<AiFillHeart size={25} className='text-red-500 hover:text-black/50 cursor-pointer'/>:
+     <AiOutlineHeart size={25} className='text-white hover:text-red/50 cursor-pointer'/>}</button>  
 <div className='text-white'>
            {likesCount ?`${likesCount} likes` : '0 likes'} 
         </div>

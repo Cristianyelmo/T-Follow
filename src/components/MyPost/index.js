@@ -74,11 +74,14 @@ const commentRef = doc(db,`posts/${id}/comments/${commentData.id}`)
 await setDoc(commentRef,commentData)
 }
 
-
+const[disabledFollow,setDisabled] = useState(false)
 
 
 const handleLikePost = async ()=>{
    /*  setIsLike((prevState)=>!prevState) */
+   setDisabled(true)
+
+   try{
 
    const postLike ={
     postId:id,
@@ -107,7 +110,7 @@ if(likesCount){
 }
 
 await updateDoc(postRef,{
-likesCount:likesCount  - 1
+likesCount:updatedLikeCount
 })
 }else{
     await setDoc(likeRef,postLike);
@@ -118,12 +121,17 @@ likesCount:likesCount  - 1
     }
     
     await updateDoc(postRef,{
-        likesCount:likesCount || 0 + 1
+        likesCount:updatedLikeCount 
         })
 }
 
 
-
+}catch (error) {
+    console.error
+  }finally {
+    setDisabled(false)
+  }
+  
 
 
 }
@@ -240,16 +248,16 @@ const[showPicker,setShowPicker]=useState(false)
 
         <div className='flex space-x-2'>
 
-<div onClick={handleLikePost}>
-{
-    IsLike ? <AiFillHeart size={25} className='text-red-500 hover:text-black/50 cursor-pointer'/> :
-    <AiOutlineHeart size={25} className='text-white hover:text-red/50 cursor-pointer'/>
-}
-    
+
+
+ <button onClick={handleLikePost} disabled={disabledFollow}>{IsLike ?<AiFillHeart size={25} className='text-red-500 hover:text-black/50 cursor-pointer'/>:
+     <AiOutlineHeart size={25} className='text-white hover:text-red/50 cursor-pointer'/>}</button>  
 
 
 
-</div>
+
+
+
 <div className='text-white'>
            {likesCount ?`${likesCount} likes` : '0 likes'} 
         </div>
