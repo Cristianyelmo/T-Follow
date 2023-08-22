@@ -466,7 +466,7 @@ posts.map((post)=>(
 <ProfileViewComponent/> :
 
 
-      <div className='grid w-full grid-cols-2 gap-6 max-w-screen-lg mt-5 mx-auto'>
+      <div className='grid w-full grid-cols-2 gap-6 max-w-[600px]-lg mt-5 mx-auto'>
       <div className="w-full  p-[20px]  col-span-2">
             <section className=" space-x-4 border-black/10 flex space-x-4 border-gray-400 p-4 overflow-x-scroll bg-[#6283fb] rounded-[8px]   ">
 
