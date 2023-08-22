@@ -74,7 +74,7 @@ onSnapshot(commentsQuery,
 
 
  return( 
-  <div className='grid w-full grid-cols-2 gap-6 max-w-[600px]-lg mt-5 mx-auto'>
+  <div className='grid w-full grid-cols-2 gap-6 max-w-xl-lg mt-5 mx-auto'>
   <div className="w-full  p-[20px]  col-span-2">
  <div>
 
