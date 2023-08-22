@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 import { BsSearch } from 'react-icons/bs'
 import HeaderIcon from './HeaderIcon'
-
+import IconsMajor from '../../../public/IconoPrincipal.svg'
 
 
 import {
@@ -60,7 +60,7 @@ const handleLogout  = async ()=>{
 
         <div className='photo-letra flex justify-around items-center ml-3'>
         <div className='text-x1 font-semibold tracking-wider mr-4'>
-            <img src='/IconoPrincipal.svg' className='w-[100px] h-[100px] iconoPrincipal'/>
+            <img src={IconsMajor} className='w-[100px] h-[100px] iconoPrincipal'/>
         </div>
         <div className='flex justify-center mb-[12px]'>
             <p className='text-white mt-[20px] text-xl'>T-follow</p>
