@@ -426,7 +426,7 @@ return ()=>{
     <div className='desva absolute w-full bg-black bg-opacity-50 items-center'>
    <AiFillCamera className='w-[80px] h-[800px] text-white ml-[80px]'/>
   </div>
-  <img src='https://firebasestorage.googleapis.com/v0/b/instagram-clone-app-898ee.appspot.com/o/IconoPrincipal.svg?alt=media&token=80077db2-837f-473e-aa16-a5cfd5bd05d3' />
+  <img src='https://firebasestorage.googleapis.com/v0/b/instagram-clone-app-898ee.appspot.com/o/PhotoDefault.png?alt=media&token=f54b9879-8d70-4f0c-86a9-576dcc0fd18c' />
   
   </div> 
 
