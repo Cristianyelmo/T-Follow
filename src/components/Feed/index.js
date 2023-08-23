@@ -343,7 +343,7 @@ if(user.username){
  
       <Modal closeModal={closeModal} isOpen={isUploadPostModalOpen}>
         <div className="w-screen h-screen max-w-[70vh] max-h-[70vh] p-6 flex flex-col items-center bg-[#1B4DFF]">
-            <div className="w-full py-4 text-xl text-center border-b border-white font-semibold text-white">Create new post</div>
+            <div className="w-full py-4 text-xl text-center border-b border-white font-semibold text-white">Crea una nueva publicacion</div>
               
 
 
@@ -352,7 +352,7 @@ if(user.username){
                     !File ?( <>
                      <label htmlFor="post" className='bg-[#0095F6] py-2 px-4 text-white active:scale-95 transform transition 
                 disabled:bg-opacity-50 cursor-pointer disabled:scale-100 rounded text-sm font-semibold'>
-                    Select from computer</label>
+                    Selecciona</label>
 
 
 <input onChange={(e)=>setFile(e.target.files[0])}
@@ -372,9 +372,9 @@ if(user.username){
                     value={Media.caption}    className="w-full px-2 py-1 bg-gray-100 border rounded-sm outline-none hover:bg-transparent focus:bg-transparent placeholader:text-sm focus:border-gray-400"/>
 <div className="flex items-center justify-center w-full gap-x-6">
     <button  className='bg-[#0095F6] py-2 px-4 text-white active:scale-95 transform transition 
-                disabled:bg-opacity-50 cursor-pointer disabled:scale-100 rounded text-sm font-semibold' onClick={handleRemovePost}>Remove</button>
+                disabled:bg-opacity-50 cursor-pointer disabled:scale-100 rounded text-sm font-semibold' onClick={handleRemovePost}>Remover</button>
      <button className='bg-[#0095F6] py-2 px-4 text-white active:scale-95 transform transition 
-                disabled:bg-opacity-50 cursor-pointer disabled:scale-100 rounded text-sm font-semibold' onClick={handleUploadPost}>Upload</button>
+                disabled:bg-opacity-50 cursor-pointer disabled:scale-100 rounded text-sm font-semibold' onClick={handleUploadPost}>Subir</button>
 </div>
                     
                     </div>)
@@ -501,12 +501,19 @@ posts.map((post)=>(
  
 
              {
-  posts &&         posts.map((post)=>(
-Follows && Follows.map((postxd)=>(
- (postxd.UserFollow === post.username )  ?
-                    <Post key={post.id} {...post}  />:""
+  posts && Follows.length  ?  posts.map((post)=>(
+  Follows.map((postxd)=>(
+ (postxd.UserFollow === post.username )  && 
+                    <Post key={post.id} {...post}  />
+                    
                     ))
-                    ))
+                    
+                    )):<div className="flex items-center flex-col bg-[#00000085] p-2 rounded mt-4">
+                    <div className="">
+                    <img className="w-[150px] h-[150px] "src="https://firebasestorage.googleapis.com/v0/b/instagram-clone-app-898ee.appspot.com/o/Group%2085.svg?alt=media&token=ed3fe511-632b-4f02-beb4-204b432c79dd"/>
+                    </div>
+                    <h1 className="text-white">Ups! el feed esta vacio,sigue a personas para que aparezcan aqui!</h1>
+                    </div>
              }
 
             </section>
