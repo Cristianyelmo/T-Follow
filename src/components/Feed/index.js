@@ -387,7 +387,7 @@ if(user.username){
               </div>
       </Modal>
         <ModalHeart closeModal={closeModalHeart} isOpen={NotificationModalOpen}>
-        <div className="w-screen h-screen max-w-[70vh] max-h-[70vh] p-6 flex flex-col  bg-[#1B4DFF]">
+        <div className="w-screen h-screen max-w-[70vh] max-h-[70vh] p-6 flex flex-col  bg-[#1B4DFF] overflow-y-scroll">
       
  {
   FollowNoti.length  ?  FollowNoti.map((data)=>
