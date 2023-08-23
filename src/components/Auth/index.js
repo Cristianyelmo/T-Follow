@@ -194,7 +194,7 @@ dispatch({
 
 
 
-toast.success('welcome to instagram clone by Cris')
+toast.success('Welcome to T-follow! made with ❤️')
 dispatch({
   type:'SET_IS_ONBOARDED',
   payload:{

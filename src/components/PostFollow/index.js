@@ -223,7 +223,7 @@ const[showPicker,setShowPicker]=useState(false)
         <button onClick={handleLikePost} disabled={disabledFollow}>{IsLike ?<AiFillHeart size={25} className='text-red-500 hover:text-black/50 cursor-pointer'/>:
      <AiOutlineHeart size={25} className='text-white hover:text-red/50 cursor-pointer'/>}</button>  
 <div className='text-white'>
-           {likesCount ?`${likesCount} likes` : '0 likes'} 
+           {likesCount ?`${likesCount} Me gusta` : '0 Me gusta'} 
         </div>
 
         </div>
@@ -270,10 +270,10 @@ const[showPicker,setShowPicker]=useState(false)
     <input type="text" 
     name={`comment ${id}`} 
     id={`comment ${id}`}
-    className='w-full outline-none p-2 rounded-[3px]  ' placeholder='Add a comment..' value={inputStr} onChange={(e)=>setInputStr(e.target.value)}  ref={comment} />
+    className='w-full outline-none p-2 rounded-[3px]  ' placeholder='Añadir un comentario..' value={inputStr} onChange={(e)=>setInputStr(e.target.value)}  ref={comment} />
 </div>
 <div >
-<button className='text-lg font-semibold ml-5 mt-1  text-white'>Post</button>
+<button className='text-lg font-semibold ml-5 mt-1  text-white'>Publicar</button>
 </div>
 </div>
 

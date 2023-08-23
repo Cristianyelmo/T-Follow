@@ -13,34 +13,7 @@ body{
     background-repeat: repeat;
 }
 
-.emoji-picker {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height:100vh;
- }
- .selected-emoji {
-    font-size: 5rem;
- }
- .emoji-list {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    background-color: #f2f2f2;
-    padding: 16px;
-    font-size: 3rem;
-    margin-top: 1rem;
- }
- .emoji-item {
-    padding: 8px;
-    cursor: pointer;
- }
 
- .scroll-container {
-    white-space: nowrap;
-    overflow-x: auto;
-    display: flex;
-  }
 
   
 
@@ -72,26 +45,17 @@ body{
 }
 
 
+
+::-webkit-scrollbar-thumb {
+   background:none; 
+   border-radius: none;
  }
 
- .div-imagen {
-   display:inline-block;
-   position:relative;
+
+
  }
- 
- .div-imagen > div {
-   position:absolute;
-   top:0;
-   left:0;
-   z-index:-1;
-   padding:10px;
-   margin:0;
- }
- 
- /* .desvanecer:hover {
-   opacity: 0.07;
-   
- } */
+
+
 
  .desva {
   opacity: 0;
@@ -102,3 +66,17 @@ body{
    opacity: 1
    
  } 
+
+ ::-webkit-scrollbar {
+   width: 20px;
+ }
+ 
+
+  
+ /* Handle */
+ ::-webkit-scrollbar-thumb {
+   background: rgb(0, 6, 94); 
+   border-radius: 10px;
+ }
+ 
+ /* Handle on hover */
