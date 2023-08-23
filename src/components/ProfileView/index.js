@@ -354,7 +354,12 @@ useEffect(()=>{
               /*     post.username === UserView && */
               <PostFollow key={post.id} {...post}/>
                    
-                    )):<p>No hay fotos</p>
+                    )):<div className="flex items-center flex-col bg-[#00000085] p-2 rounded ">
+                    <div className="">
+                    <img className="w-[150px] h-[150px] "src="https://firebasestorage.googleapis.com/v0/b/instagram-clone-app-898ee.appspot.com/o/Group%2085.svg?alt=media&token=ed3fe511-632b-4f02-beb4-204b432c79dd"/>
+                    </div>
+                    <h1 className="text-white">Ups! {UserView} No tiene publicaciones,cuando la tenga aparecera aqui!</h1>
+                    </div>
              
  }
 
