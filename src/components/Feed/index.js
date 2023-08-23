@@ -416,7 +416,7 @@ NotiLikes && NotiLikes.map((data)=>
 posts.map((post)=>(
     data.postId === post.id &&
 <div className="flex cursor-pointer items-center p-2">
-<div className='w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden '>
+<div className='w-12 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden '>
   <img src={data.PhotoWhoGiveLike} />
   </div>
 

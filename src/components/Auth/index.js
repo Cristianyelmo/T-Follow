@@ -397,9 +397,9 @@ return ()=>{
   
   <form  onSubmit={submitHandler} className='flex flex-col items-center space-y-4'>
      {/*  <div className='tracking-wider text-5x1 my-5'>Instagram</div> */}
-     <div className='flex flex-col'>
-     <img className='w-[250px] h-[250px]' src='https://firebasestorage.googleapis.com/v0/b/instagram-clone-app-898ee.appspot.com/o/IconoPrincipal.svg?alt=media&token=80077db2-837f-473e-aa16-a5cfd5bd05d3'    />
-     <p>t-follow</p>
+     <div className='flex flex-col  items-center'>
+     <img className='w-[180px] h-[180px]' src='https://firebasestorage.googleapis.com/v0/b/instagram-clone-app-898ee.appspot.com/o/IconoPrincipal.svg?alt=media&token=80077db2-837f-473e-aa16-a5cfd5bd05d3'    />
+     <h1 className='text-4xl text-white'> T-follow!</h1>
      </div>
     
 
@@ -421,17 +421,17 @@ return ()=>{
  
 
 {!FileProfile ?<label>
-
-   <div className=' relative desvanecer w-60 h-60 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden border border gray-500 '>
+<div className='flex flex-col justify-center'>
+   <div className=' ml-6 relative desvanecer w-[150px] h-[150px] bg-gray-300 rounded-full flex items-center justify-center overflow-hidden border-4 border gray-500 '>
     <div className='desva absolute w-full bg-black bg-opacity-50 items-center'>
-   <AiFillCamera className='w-[80px] h-[800px] text-white ml-[80px]'/>
+   <AiFillCamera className='w-[40px] h-[800px] text-white ml-[55px]'/>
   </div>
-  <img src='https://firebasestorage.googleapis.com/v0/b/instagram-clone-app-898ee.appspot.com/o/PhotoDefault.png?alt=media&token=f54b9879-8d70-4f0c-86a9-576dcc0fd18c' />
+  <img  src='https://firebasestorage.googleapis.com/v0/b/instagram-clone-app-898ee.appspot.com/o/PhotoDefault.png?alt=media&token=f54b9879-8d70-4f0c-86a9-576dcc0fd18c' />
   
   </div> 
 
-
-  
+  <h1 className=' text-white text-2xl my-2'>Agrega Foto de Perfil</h1>
+  </div>
 
 
 <input onChange={(e)=>setFileProfile(e.target.files[0])} 
@@ -443,7 +443,7 @@ return ()=>{
                     />
 
 </label> : 
-<div className='w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden '>
+<div className='w-[150px] h-[150px] bg-gray-300 rounded-full flex items-center justify-center overflow-hidden border-4 border gray-900 '>
 <input type="image" src={MediaProfile.src} className="w-full h-full" /> 
   </div>}
     
