@@ -11,7 +11,7 @@ import { GlobalContext, GlobalUserViewContext } from '@/state/context/GlobalCont
 import { onAuthStateChanged } from 'firebase/auth'
 import useFetchCurrentUser from '@/utils/fetchCurrentUser'
 const Post = ({id,username,image,caption,likesCount,imageProfile})=>{
-
+/* console.log(!image && alert('broo')) */
     const{setPostId,setUserview,setProfileView,setProfile}=useContext(GlobalUserViewContext)
  const [IsLike,setIsLike]=useState(false)
  const[Comments,setComments]=useState()
@@ -198,10 +198,10 @@ const[showPicker,setShowPicker]=useState(false)
 
 
 
-    return(
+     return(
 
         
-        <div className="flex flex-col w-full bg-[#1B4DFF] p-[15px] rounded-[8px] mt-[15px] border-black/10">
+    <div className="flex flex-col w-full bg-[#1B4DFF] p-[15px] rounded-[8px] mt-[15px] border-black/10">
         <div  className="flex items-center justify-between w-full py-2">
         <div onClick={()=>handleViewUser(username)} className="flex items-center justify-center space-x-2 cursor-pointer">
         <div  /* className="w-10 h-10 border-2 bg-black rounded-full" *//>
@@ -322,6 +322,7 @@ const[showPicker,setShowPicker]=useState(false)
 
         </div>
                        </div>
+                       
 
 
                        

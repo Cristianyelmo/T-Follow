@@ -334,9 +334,6 @@ if(user.username){
 
 
 
-
-
-
     return(
         <div className='w-full h-full ' >
       <Header/>
@@ -501,19 +498,22 @@ posts.map((post)=>(
  
 
              {
-  posts && Follows.length  ?  posts.map((post)=>(
-  Follows.map((postxd)=>(
- (postxd.UserFollow === post.username )  && 
+ posts && Follows.length ?  posts.map((post)=>(
+       Follows.map((postxd)=>(
+ postxd.UserFollow === post.username   &&
+ 
                     <Post key={post.id} {...post}  />
+                   
                     
                     ))
                     
-                    )):<div className="flex items-center flex-col bg-[#00000085] p-2 rounded mt-4">
+                    )):  !Follows.length  && <div className="flex items-center flex-col bg-[#00000085] p-2 rounded">
                     <div className="">
                     <img className="w-[150px] h-[150px] "src="https://firebasestorage.googleapis.com/v0/b/instagram-clone-app-898ee.appspot.com/o/Group%2085.svg?alt=media&token=ed3fe511-632b-4f02-beb4-204b432c79dd"/>
                     </div>
-                    <h1 className="text-white">Ups! el feed esta vacio,sigue a personas para que aparezcan aqui!</h1>
-                    </div>
+                    <h1 className="text-white">Ups! El feed esta vacio,sigue alguien con publicaciones y aparecera aqui!</h1>
+                    </div> 
+
              }
 
             </section>

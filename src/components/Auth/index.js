@@ -168,8 +168,8 @@ const imageUrlDefault ='https://firebasestorage.googleapis.com/v0/b/instagram-cl
 
 await setDoc(doc(db,'users',auth.currentUser.email),{
 
-fullName:onboardingForm.fullName,
-username:onboardingForm.username,
+fullName:onboardingForm.fullName ,
+username:onboardingForm.username, 
 email:auth.currentUser.email,
 id:auth.currentUser.uid,
  imageProfile:!FileProfile ? 'https://firebasestorage.googleapis.com/v0/b/instagram-clone-app-898ee.appspot.com/o/PhotoDefault.png?alt=media&token=4a55416f-27c7-4c0e-a3b2-1c918ee312a3' :url ,
@@ -420,39 +420,95 @@ return ()=>{
 
 
 
-    {isAuthenticated && !isOnboarded &&     <form  onSubmit={onboardingSubmitHandler} className='flex flex-col items-center space-y-4'>
+    {isAuthenticated && !isOnboarded && 
+    
+   
+  
+ 
+    
+
+
+
+
+
+
+  
+    
+    
+    
+    
+        <form  onSubmit={onboardingSubmitHandler} className='flex flex-col items-center space-y-4'>
+
+
+{  !FileProfile ? <label>
+    <div className='flex flex-col justify-center'>
+       <div className=' ml-6 relative desvanecer w-[150px] h-[150px] bg-gray-300 rounded-full flex items-center justify-center overflow-hidden border-4 border gray-500 '>
+        <div className='desva absolute w-full bg-black bg-opacity-50 items-center'>
+       <AiFillCamera className='w-[40px] h-[800px] text-white ml-[55px]'/>
+      </div>
+      <img  src='https://firebasestorage.googleapis.com/v0/b/instagram-clone-app-898ee.appspot.com/o/PhotoDefault.png?alt=media&token=f54b9879-8d70-4f0c-86a9-576dcc0fd18c' />
+      
+      </div> 
+    
+      <h1 className=' text-white text-2xl my-2'>Agrega Foto de Perfil</h1>
+      </div>
+    
+    
+    <input onChange={(e)=>setFileProfile(e.target.files[0])} 
+                     type='file'
+                      name='post'
+                       id='post'
+                        className="hidden "
+                         multiple={false} 
+                        />
+    
+    </label> : 
+    <div className='flex flex-col justify-center'>
+      <div className='py-2'>
+    <div className='w-[150px] h-[150px] bg-gray-300 rounded-full flex items-center justify-center overflow-hidden border-4 border gray-900 ml-6  '>
+    <input disabled={true} type="image" src={MediaProfile.src} className="w-full h-full" /> 
+    
+      </div>
+      </div>
+
+      <div className='bg-black p-2 rounded'>
+        <label>
+     
+    
+     <h1 className=' text-white text'>Agrega otra Foto de Perfil</h1>
+     
+   
+   
+   <input onChange={(e)=>setFileProfile(e.target.files[0])} 
+                    type='file'
+                     name='post'
+                      id='post'
+                       className="hidden "
+                        multiple={false} 
+                       />
+   
+   </label>
+      </div>
+      </div>
+      }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
  
 
-{!FileProfile ?<label>
-<div className='flex flex-col justify-center'>
-   <div className=' ml-6 relative desvanecer w-[150px] h-[150px] bg-gray-300 rounded-full flex items-center justify-center overflow-hidden border-4 border gray-500 '>
-    <div className='desva absolute w-full bg-black bg-opacity-50 items-center'>
-   <AiFillCamera className='w-[40px] h-[800px] text-white ml-[55px]'/>
-  </div>
-  <img  src='https://firebasestorage.googleapis.com/v0/b/instagram-clone-app-898ee.appspot.com/o/PhotoDefault.png?alt=media&token=f54b9879-8d70-4f0c-86a9-576dcc0fd18c' />
   
-  </div> 
-
-  <h1 className=' text-white text-2xl my-2'>Agrega Foto de Perfil</h1>
-  </div>
-
-
-<input onChange={(e)=>setFileProfile(e.target.files[0])} 
-                 type='file'
-                  name='post'
-                   id='post'
-                    className="hidden "
-                     multiple={false} 
-                    />
-
-</label> : 
-<div className='w-[150px] h-[150px] bg-gray-300 rounded-full flex items-center justify-center overflow-hidden border-4 border gray-900 '>
-<input type="image" src={MediaProfile.src} className="w-full h-full" /> 
-  </div>}
-    
  
      
      
@@ -465,7 +521,13 @@ return ()=>{
       <input type='fullName' name='fullName' id='fullName' onChange={onboardingFormOnChangeHandler} value={onboardingForm.fullName} placeholder='Nombre completo' className='bg-gray-100 hover:bg-transparent focus:bg-transparent border   py-2 px-3 outline-none w-full'/>
       
       <button disabled={!onboardingForm.username || !onboardingForm.fullName} type='submit' className='w-full bg-[#0095F6] py-2 px-6 text-white active:scale-95 transform transition disabled:bg-[#98b2c3]'>Ingresar</button>
-    </form>}
+    </form>
+    
+    
+    
+    
+    
+    }
 
 
 
