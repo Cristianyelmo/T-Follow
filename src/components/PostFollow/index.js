@@ -208,7 +208,7 @@ const[showPicker,setShowPicker]=useState(false)
         </div>
         
         
-        <div onClick={()=>alert('chau')} className="select-none w-4"><BsThreeDots className="text-lg"/></div>
+        <div onClick={()=>alert('Hola gracias por usar a T-Follow xd')} className="select-none w-4"><BsThreeDots className="text-lg"/></div>
         
         </div>
         
