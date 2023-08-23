@@ -161,7 +161,7 @@ const usersSnapshot= await getDocs(userQuery)
 
 
 if(usersSnapshot.docs.length > 0){
-   toast.error('username already exists')
+   toast.error('El nombre de usuario ya existe')
    return
 }
 const imageUrlDefault ='https://firebasestorage.googleapis.com/v0/b/instagram-clone-app-898ee.appspot.com/o/PhotoDefault.png?alt=media&token=f54b9879-8d70-4f0c-86a9-576dcc0fd18c'
@@ -194,7 +194,7 @@ dispatch({
 
 
 
-toast.success('Welcome to T-follow! made with ❤️')
+toast.success('Bienvenido a T-Follow!,Hecho con ❤️')
 dispatch({
   type:'SET_IS_ONBOARDED',
   payload:{
@@ -336,7 +336,7 @@ case 'load':
  
 case 'error':
   console.error(e)
-  return toast.error('something not working')
+  return toast.error('algo no funciona')
 
 
 
@@ -411,9 +411,9 @@ return ()=>{
 
      <input type="email" name="email" id="email" onChange={onChangeHandler} value={form.email}
      className='bg-[#5C80FF]      py-2 px-3 outline-none w-full rounded-sm focus:border-gray-400' placeholder='Email' />
-      <input type='password' name='password' id='password' onChange={onChangeHandler} value={form.password} placeholder='Password' className='bg-gray-100 hover:bg-transparent focus:bg-transparent border   py-2 px-3 outline-none w-full'/>
+      <input type='password' name='password' id='password' onChange={onChangeHandler} value={form.password} placeholder='Contraseña' className='bg-gray-100 hover:bg-transparent focus:bg-transparent border   py-2 px-3 outline-none w-full'/>
       
-      <button disabled={isDisabled} type='submit' className='w-full bg-[#0095F6] py-2 px-6 text-white active:scale-95 transform transition disabled:bg-[#98b2c3]'>{IsLoginForm ? 'Log In' : 'Sign up'}</button>
+      <button disabled={isDisabled} type='submit' className='w-full bg-[#0095F6] py-2 px-6 text-white active:scale-95 transform transition disabled:bg-[#98b2c3]'>{IsLoginForm ? 'Ingresar' : 'Registrarse'}</button>
     </form>}
 
 
@@ -458,13 +458,13 @@ return ()=>{
      
 
      <input type="username" name="username" id="username" onChange={onboardingFormOnChangeHandler} value={onboardingForm.username}
-     className='bg-gray-100 hover:bg-transparent focus:bg-transparent border       py-2 px-3 outline-none w-full rounded-sm focus:border-gray-400' placeholder='username' />
+     className='bg-gray-100 hover:bg-transparent focus:bg-transparent border       py-2 px-3 outline-none w-full rounded-sm focus:border-gray-400' placeholder='Nombre de usuario' />
 
 
 
-      <input type='fullName' name='fullName' id='fullName' onChange={onboardingFormOnChangeHandler} value={onboardingForm.fullName} placeholder='Your fullname' className='bg-gray-100 hover:bg-transparent focus:bg-transparent border   py-2 px-3 outline-none w-full'/>
+      <input type='fullName' name='fullName' id='fullName' onChange={onboardingFormOnChangeHandler} value={onboardingForm.fullName} placeholder='Nombre completo' className='bg-gray-100 hover:bg-transparent focus:bg-transparent border   py-2 px-3 outline-none w-full'/>
       
-      <button disabled={!onboardingForm.username || !onboardingForm.fullName} type='submit' className='w-full bg-[#0095F6] py-2 px-6 text-white active:scale-95 transform transition disabled:bg-[#98b2c3]'>Submit</button>
+      <button disabled={!onboardingForm.username || !onboardingForm.fullName} type='submit' className='w-full bg-[#0095F6] py-2 px-6 text-white active:scale-95 transform transition disabled:bg-[#98b2c3]'>Ingresar</button>
     </form>}
 
 
@@ -472,8 +472,8 @@ return ()=>{
 
 
     <div className='w-full  flex flex-col  text-sm  text-center text-white'>
-   {IsLoginForm ? 'Dont have an account?' : 'Already have an account!'}
-  <button onClick={()=>setIsLoginForm((prev)=>(!prev))}className='text-blue-900 inline-block'>{IsLoginForm ? 'Log In' : 'Sign up'}</button>
+   {IsLoginForm ? 'No tienes una cuenta?' : 'Ya tienes una cuenta!'}
+  <button onClick={()=>setIsLoginForm((prev)=>(!prev))}className='text-blue-900 inline-block'>{IsLoginForm ? 'Registrate' : 'Ingresa'}</button>
 </div>
 
 

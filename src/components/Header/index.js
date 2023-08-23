@@ -91,7 +91,7 @@ const handleLogout  = async ()=>{
                         }
                      
                         </div>
-                        <button onClick={handleLogout} className='py-2 h-4/5 bg-[#0095F6] py-2 px-6 text-white active:scale-95 transform transition disabled:bg-[#98b2c3]'>Logout</button>
+                        <button onClick={handleLogout} className='py-2 h-4/5 bg-[#0095F6] py-2 px-6 text-white active:scale-95 transform transition disabled:bg-[#98b2c3]'>Salir</button>
                     </div>
         
                 </header>

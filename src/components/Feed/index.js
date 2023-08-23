@@ -121,7 +121,7 @@ case 'load':
    
 case 'error':
     console.error(e)
-    return toast.error('something not working')
+    return toast.error('algo no funciona')
 
 
 
@@ -170,7 +170,7 @@ try{
 await setDoc(postRef,post)
 }catch(error){
 console.error(error)
-toast.error('error posting')
+toast.error('error al publicar')
 }
 
 
@@ -182,9 +182,9 @@ toast.error('error posting')
 
 const handleUploadPost = async ()=>{
 
-    if(!File) return toast.error('please select a image first')
+    if(!File) return toast.error('por favor selecciona una imagen primero')
     setMedia((prev)=>({...prev,isUploading:true}))
-   const toastId = toast.loading('uploading your post,wait a minute') 
+   const toastId = toast.loading('subiendo tu publicacion,espere un minuto') 
    const postName = `posts/${uuidv4()}-${File.name}`;
 const storageRef = ref(storage,postName)
 
@@ -192,13 +192,13 @@ try{
 const uploadTask = await uploadBytes(storageRef,File)
 const url = await getDownloadURL(uploadTask.ref)
 await handlePostMedia(url)
-toast.success('post has uploaded',{
+toast.success('la publicacion se ha subido',{
     id:toastId
 })
 
 
 }catch(error){
-toast.error('failed to upload the image',{
+toast.error('fallo en subir la imagen',{
     id:toastId
 })
 }finally{
