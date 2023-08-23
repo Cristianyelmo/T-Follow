@@ -374,12 +374,18 @@ return ()=>{
     <div className='w-screen h-[105vh] flex items-center justify-center'>
     <div><Toaster/></div>
   <div className='flex h-4/5 w-4/5'>
-  <div className='w-full h-full hidden lg:block'>
+  <div className='flex flex-col w-full h-full hidden lg:block'>
 {/* <Lottie play loop animationData={AuthAnimation} className='w-full h-full'/> */}
 
 <img  src='https://firebasestorage.googleapis.com/v0/b/instagram-clone-app-898ee.appspot.com/o/IconoPrincipal.svg?alt=media&token=80077db2-837f-473e-aa16-a5cfd5bd05d3'    />
 
+<div className=''>
+<h1 className='text-6xl text-white  '>T-Follow!</h1>
+</div>
 
+<div>
+<h2 className='text-4xl text-white'>Registrate y Entra a esta App!</h2>
+</div>
   </div>
 
 
